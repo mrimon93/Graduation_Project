@@ -1,3 +1,5 @@
+#Third one, optional. To plot the Diagram of the CSV-data
+
 import pandas as pd
 import matplotlib.pyplot as plt
 
