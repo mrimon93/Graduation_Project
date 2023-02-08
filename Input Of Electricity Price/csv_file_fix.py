@@ -1,4 +1,4 @@
-#andra koden för fixa csv
+#Second Code, Harmonize the CSV file and Create a new one with the Harmonized Data
 
 import pandas as pd
 
