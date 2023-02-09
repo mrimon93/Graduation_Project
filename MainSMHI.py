@@ -40,6 +40,9 @@ class MainSMHI:
 
 
     def save_samples(self, start_date, end_date):
+        '''Searches in 'data_w/clean' folder.   \n
+        Saves into "data_w/target" folder.
+        '''
         clean_list = os.listdir('data_w/clean')
         handler    = HandleSMHI()
 
