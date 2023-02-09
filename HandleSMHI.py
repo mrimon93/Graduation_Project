@@ -60,15 +60,19 @@ class HandleSMHI:
             index_col  = False,
             low_memory = False)
     
-        dfc = df[df.columns[:3]]
+        dfc = df[df.columns[:3]].copy()
+        dfc['Timestamp'] = df['Datum'] + ' ' + df['Tid (UTC)']
 
-        return dfc.to_csv('data_w/clean/' + f'clean_{ filename }', index = False)
+        dfc = dfc.drop(['Datum', 'Tid (UTC)'], axis = 1)
+        dfcc = dfc[[dfc.columns[1], dfc.columns[0]]]
+
+        return dfcc.to_csv('data_w/clean/' + f'clean_{ filename }', index = False)
 
 
     def get_data_between(self, start_date:str, end_date:str, filename:str):
-        '''Save data between two dates into "data_w/target" folder.  \n
-        Searches in 'data_w/clean/' folder.                          \n
-        Valid date format: '2021-11-01'                              \n
+        '''Searches in 'data_w/clean/' folder.                      \n
+        Save data between two dates into "data_w/target" folder.    \n
+        Valid date format: '2021-11-01'                             \n
         ----------
         Parameters:
         ----------
@@ -77,7 +81,7 @@ class HandleSMHI:
             filename : str
         '''
 
-        df  = pd.read_csv('data_w/clean/' + filename, index_col = 'Datum')
+        df  = pd.read_csv('data_w/clean/' + filename, index_col = 'Timestamp')
         dfc = df.loc[start_date:end_date]
 
         try:
