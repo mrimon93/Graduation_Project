@@ -6,12 +6,7 @@ end_date   = '2022-11-01 00:00'
 SE_AREA = "SE4"
 params  = ["1", "4"]
 
-# Prices
-stations = [63510,
-            66110,
-            62260,
-            52240]
-
+# Prices 
 e_handle = EnergyHandler()
 e_handle.get_data(start_date, end_date, SE_AREA)
 e_handle.clean_price_data('raw_el_prices.json')
