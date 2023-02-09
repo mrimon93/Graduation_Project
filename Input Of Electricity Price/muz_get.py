@@ -33,6 +33,8 @@ def clean_elpriser(File):
     df['HourDK'] = df['HourDK'].str[:16]
     df['HourDK'] = df['HourDK'].str.replace('T', ' ')
     df = df.rename(columns={'HourDK': 'Timestamp'})
+    df = df.drop_duplicates(subset=['Timestamp'], keep='first')
+    df = df.sort_values(by=['Timestamp'])
     user_csvfile= input('The name of CSV-file? ')
     df.to_csv(f'{user_csvfile}.csv', sep=';', index=True)
 
