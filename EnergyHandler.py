@@ -12,7 +12,7 @@ class EnergyHandler:
         '''Get data from:   start date, end date, se_area       \n
         se_area examples: SE1, SE2, SE3, SE4. (For now only SE4)\n 
         https://api.energidataservice.dk/dataset/Elspotprices   \n
-        Saves into 'data/raw/' folder as 'raw_el_prices.json' '''
+        Saves into 'data_el/raw/' folder as 'raw_el_prices.json' '''
 
         url = f'https://api.energidataservice.dk/dataset/Elspotprices' + \
             f'/download?format=json?offset=0&start={start_date[:10]}' + \
