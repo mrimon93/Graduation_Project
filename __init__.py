@@ -16,12 +16,12 @@ e_handle = EnergyHandler()
 e_handle.get_data(start_date, end_date, SE_AREA)
 e_handle.clean_price_data('raw_el_prices.json')
 
-# Weather
+## Weather
 smhi = MainSMHI()
 
 smhi.get_raw()
 smhi.get_raw('wind')
 smhi.clean_raw()
-smhi.save_samples('2021-11-01', '2022-10-31')
+smhi.save_samples('2021-11-01', '2022-11-01')
 # smhi.merge_samples() # Not yet done
 
