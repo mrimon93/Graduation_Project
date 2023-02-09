@@ -1,47 +1,69 @@
-#First Code, downloading the data from Api to CSV file
 import requests
 import pandas as pd
 
-#Manual input of the Start date, end date and SE_Area to interact with the Api
-#Be Aware! Only SE3 & SE4 currently works with the API
-Start_date = "2021-01-01"
-end_date = "2022-01-01"
-SE_Area = "SE4"
-url = f"https://api.energidataservice.dk/dataset/Elspotprices/download?format=json?offset=0&start={Start_date}T00:00&end={end_date}T00:00&filter=%7B%22PriceArea%22:[%22{SE_Area}%22]%7D&sort=HourUTC%20DESC&timezone=dk"
-response = requests.get(url)
+
+class EnergyHandler:
+    '''Get and Save raw data and then clean the data'''
+
+    def __init__(self):
+        pass
+
+    def get_data(self, start_date, end_date, se_area):
+        '''Get data from:   start date, end date, se_area       \n
+        se_area examples: SE1, SE2, SE3, SE4. (For now only SE4)\n 
+        https://api.energidataservice.dk/dataset/Elspotprices   \n
+        Saves into 'data/raw/' folder as 'raw_el_prices.json' '''
+
+        url = f'https://api.energidataservice.dk/dataset/Elspotprices' + \
+            f'/download?format=json?offset=0&start={start_date[:10]}' + \
+                f'T00:00&end={end_date[:10]}T00:00&filter=%7B%22PriceArea%22:' + \
+                    f'[%22{se_area}%22]%7D&sort=HourUTC%20DESC&timezone=dk'
+
+        response = requests.get(url)
+
+        if response.status_code == 200:
+            new_one = requests.get(url)
+            data    = new_one.json()
+            df      = pd.DataFrame(data)
+
+            df.to_json("data_el/raw/raw_el_prices.json", index = True, orient='records')
+        
+        else:
+            print("Error: get_data_prices()")
 
 
-#Getting the data as JSON -file
-def get_data(url):
-    response = requests.get(url)
-    if response.status_code == 200:
-        new_one = requests.get(url)
-        data = new_one.json()
-        df = pd.DataFrame(data)
-        user_jsonfile = input('The name of JSON-File? ')
-        df.to_json(f"{user_jsonfile}.json", index=True, orient='records')
-        return user_jsonfile
-    else:
-        print("Error")
+    def clean_price_data(self, raw_file):
+        '''Searches in 'data_el/raw/' folder.      \n
+        Saves into 'data_el/harmonized/ folder.'   '''
 
-#Using the JSON-File,
-#Dropping the SpotPriceDKK and HourUTC
-#Replacing the the HourDK with TimeStamp
-def clean_elpriser(File):
-    df = pd.read_json(File)
-    df = df.drop(['HourUTC', 'SpotPriceDKK'], axis=1)
-    df['HourDK'] = df['HourDK'].str[:16]
-    df['HourDK'] = df['HourDK'].str.replace('T', ' ')
-    df = df.rename(columns={'HourDK': 'Timestamp'})
-    df = df.drop_duplicates(subset=['Timestamp'], keep='first')
-    df = df.sort_values(by=['Timestamp'])
-    user_csvfile= input('The name of CSV-file? ')
-    df.to_csv(f'{user_csvfile}.csv', sep=';', index=True)
+        df = pd.read_json('data_el/raw/' + raw_file)
+        df = df.drop(['HourUTC', 'SpotPriceDKK'], axis=1)
+
+        df['HourDK'] = df['HourDK'].str[:16]
+        df['HourDK'] = df['HourDK'].str.replace('T', ' ')
+
+        df = df.rename(columns={'HourDK': 'Timestamp'})
+        df = df.drop_duplicates(subset=['Timestamp'], keep='first')
+        df = df.sort_values(by=['Timestamp'])
+
+        name_harmonized = \
+            f'{raw_file}'.replace('raw', 'harmonized').replace('.json', '.csv')
+
+        df.to_csv(f'data_el/harmonized/{name_harmonized}', sep = ';', index = False)
 
 
-#Calls the Created JSON-File
-user_jsonfile = get_data(url)
-clean_elpriser(user_jsonfile + ".json")
+if __name__ == '__main__':
+    start_date = '2021-11-01 00:00'
+    end_date   = '2022-11-01 00:00'
 
+    SE_AREA = "SE4"
+    params  = ["1", "4"]
 
-
+    stations = [63510,
+                66110,
+                62260,
+                52240]
+    
+    EnergyHandler().get_data(start_date, end_date, SE_AREA)
+    EnergyHandler().clean_price_data('raw_el_prices.json')
+    
