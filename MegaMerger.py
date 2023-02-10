@@ -55,9 +55,6 @@ class MegaMerger:
         dfc_temp = df_temp.drop(df_temp.columns[1:-1], axis=1).copy()
         dfc_wind = df_wind.drop(df_wind.columns[1:-1], axis=1).copy()
 
-        print(dfc_temp)
-        print(dfc_wind)
-
         dfc_temp.to_csv(f'data_w/final_avg/{df_temp.columns[1][:-4]}_AVG.csv', sep=';', index=False)
         dfc_wind.to_csv(f'data_w/final_avg/{dfc_wind.columns[1][:-4]}_AVG.csv', sep=';', index=False)
 
