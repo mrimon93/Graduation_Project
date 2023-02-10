@@ -24,7 +24,7 @@ class MegaMerger:
             stations : list
         ----------
         '''
-
+        cwd           = os.getcwd()
         target_folder = os.path.join(cwd, 'data_w/target/')
         dfs = []
 
@@ -80,12 +80,12 @@ class MegaMerger:
         df = pd.merge(df3, df1, on='Timestamp', how='inner')
         df = pd.merge(df, df2, on='Timestamp', how='inner')
 
-        df.to_csv('data_w/merged/elpriser_och_vader.csv', sep=';', index=False)
+        df.to_csv('data_el/merged/elpriser_och_vader.csv', sep=';', index=False)
 
 
     def find_and_fill_missing_data(self):
 
-        df = pd.read_csv('data_w/merged/elpriser_och_vader.csv', sep=';', low_memory=False)
+        df = pd.read_csv('data_el/merged/elpriser_och_vader.csv', sep=';', low_memory=False)
 
         #fill missing data
         mean_wind = df['Vindhastighet AVG'].mean()
@@ -94,7 +94,7 @@ class MegaMerger:
         df['Lufttemperatur AVG'] = df['Lufttemperatur AVG'].fillna(mean_temp)
         df['Vindhastighet AVG'] = df['Vindhastighet AVG'].fillna(mean_wind)
 
-        df.to_csv('data_w/merged/nonull_elpriser_och_vader.csv', sep=';', index=False)
+        df.to_csv('data_el/merged/nonull_elpriser_och_vader.csv', sep=';', index=False)
 
 
 if __name__ == '__main__':
@@ -110,3 +110,4 @@ if __name__ == '__main__':
         'harmonized_el_prices.csv')
 
     mm.find_and_fill_missing_data()
+    pass
