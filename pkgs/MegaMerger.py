@@ -91,6 +91,7 @@ class MegaMerger:
         df['Vindhastighet AVG'] = df['Vindhastighet AVG'].fillna(mean_wind)
 
         df.to_csv('data_el/merged/nonull_elpriser_och_vader.csv', sep=';', index=False)
+        print('Done @: data_el/merged/nonull_elpriser_och_vader.csv')
 
 
 if __name__ == '__main__':
