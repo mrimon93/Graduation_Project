@@ -80,7 +80,9 @@ class MegaMerger:
 
 
     def find_and_fill_missing_data(self):
-
+        '''Searches in 'data_el/merged/' folder.    \n
+        Saves to 'data_el/merged/' as:              \n
+        nonull_elpriser_och_vader.csv'''
         df = pd.read_csv('data_el/merged/elpriser_och_vader.csv', sep=';', low_memory=False)
 
         #fill missing data
