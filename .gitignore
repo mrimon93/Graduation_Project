@@ -3,3 +3,4 @@ __pycache__
 data_el/
 data_w/
 !data_el/merged/
+!data_w/merged/final_avg/
