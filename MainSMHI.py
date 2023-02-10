@@ -1,6 +1,6 @@
 import os
 from HandleSMHI import HandleSMHI
-from MergerSMHI import MergerSMHI
+# from MergerSMHI import MergerSMHI
 
 class MainSMHI:
     def __init__(self):
@@ -49,13 +49,6 @@ class MainSMHI:
         for file in clean_list:
             handler.get_data_between(start_date, end_date, file)
 
-
-    def merge_samples(self):
-        targets = os.listdir('data_w/target')
-        merger  = MergerSMHI()
-
-        merger.merge_dfs(targets)
-        merger.concat_date_time(os.listdir('data_w/merged'))
 
 if __name__ == '__main__':
     smhi = MainSMHI()
