@@ -20,3 +20,4 @@ smhi.clean_raw()
 smhi.save_samples('2021-11-01', '2022-10-31')
 # smhi.merge_samples() # Not yet done
 
+# Merger
