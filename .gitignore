@@ -1,8 +1,8 @@
 config.py
 __pycache__
 .DS_Store
-data_el/
-data_w/
-!data_el/merged/
-!data_el/raw/
-!data_w/merged/final_avg/
+# data_el/
+# data_w/
+# !data_el/merged/
+# !data_el/raw/
+# !data_w/merged/final_avg/
