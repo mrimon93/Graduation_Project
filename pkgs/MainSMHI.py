@@ -1,5 +1,5 @@
 import os
-from HandleSMHI import HandleSMHI
+from pkgs.HandleSMHI import HandleSMHI
 # from MergerSMHI import MergerSMHI
 
 class MainSMHI:
@@ -31,6 +31,9 @@ class MainSMHI:
 
 
     def clean_raw(self):
+        '''Searches in 'data_w/raw/' folder. \n
+        Saves to 'data_w/clean/' folder. '''
+        
         raw_list = os.listdir('data_w/raw')
         handler  = HandleSMHI()
 

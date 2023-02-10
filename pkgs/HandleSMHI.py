@@ -61,7 +61,7 @@ class HandleSMHI:
             low_memory = False)
     
         dfc = df[df.columns[:3]].copy()
-        dfc['Timestamp'] = df['Datum'] + ' ' + df['Tid (UTC)']
+        dfc['Timestamp'] = df['Datum'] + ' ' + df['Tid (UTC)'].str[:5]
 
         dfc = dfc.drop(['Datum', 'Tid (UTC)'], axis = 1)
         dfcc = dfc[[dfc.columns[1], dfc.columns[0]]]

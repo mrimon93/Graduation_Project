@@ -1,27 +1,31 @@
 import os
-from EnergyHandler import EnergyHandler
-from MainSMHI import MainSMHI
-from MegaMerger import MegaMerger
+from pkgs.EnergyHandler import EnergyHandler
+from pkgs.MainSMHI import MainSMHI
+from pkgs.MegaMerger import MegaMerger
 
 start_date = '2021-11-01 00:00'
 end_date   = '2022-11-01 00:00'
 SE_AREA = "SE4"
 params  = ["1", "4"]
 
-# Prices 
+## Make directory tree if not present
+os.system('./pkgs/make_tree.sh')
+
+## Prices 
 e_handle = EnergyHandler()
 e_handle.get_data(start_date, end_date, SE_AREA)
 e_handle.clean_price_data('raw_el_prices.json')
 
-# Weather
+## Weather
 smhi = MainSMHI()
 smhi.get_raw()
 smhi.get_raw('wind')
 smhi.clean_raw()
-smhi.save_samples('2021-11-01', '2022-10-31')
+smhi.save_samples('2021-11-01', '2022-11-01')
+# smhi.merge_samples() # Not yet done
 
 
-# Merger
+## Merger
 targets = os.listdir('data_w/target/')
 
 mm = MegaMerger()
