@@ -1,5 +1,5 @@
 import os
-from HandleSMHI import HandleSMHI
+from pkgs.HandleSMHI import HandleSMHI
 # from MergerSMHI import MergerSMHI
 
 class MainSMHI:
