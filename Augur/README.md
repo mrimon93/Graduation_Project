@@ -9,5 +9,5 @@ depending on the user input.
   
 Trained model not yet implemented.  
 ![](ui_1.png)
-![](ui_2.png)  
+![](ui2.png)  
   
