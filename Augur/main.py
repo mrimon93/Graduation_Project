@@ -1,5 +1,12 @@
+import sys
 import tkinter.ttk as ttk
 import tkinter as tk
+
+
+
+if sys.platform in 'win32':  
+    style = ttk.Style()  
+    style.theme_use("clam")
 
 root = tk.Tk()
 root.title('Augur')
