@@ -2,9 +2,7 @@ import sys
 import tkinter.ttk as ttk
 import tkinter as tk
 
-
-
-
+## Initial stage of tinkering
 
 root = tk.Tk()
 dark = '#343444'

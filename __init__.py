@@ -6,8 +6,8 @@ from pkgs.MegaMerger import MegaMerger
 
 start_date = '2021-11-01 00:00'
 end_date   = '2022-11-01 00:00'
-SE_AREA = "SE4"
-params  = ["1", "4"]
+SE_AREA    = 'SE4'
+params     = ['1', '4']
 
 start_now = messagebox.askquestion(
     'askquestion', 
