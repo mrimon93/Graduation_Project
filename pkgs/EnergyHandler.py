@@ -3,7 +3,7 @@ import pandas as pd
 
 
 class EnergyHandler:
-    '''Get and Save raw data and then clean the data'''
+    '''Get, Save raw data. Then Clean the data'''
 
     def __init__(self):
         pass
