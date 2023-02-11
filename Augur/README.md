@@ -8,6 +8,6 @@ depending on the user input.
 3. Month of the year (1-12)  
   
 Trained model not yet implemented.  
-![](ui1.png) 
+![](ui1.png)
 ![](ui2.png)  
   
