@@ -54,7 +54,7 @@ class AugurUI:
             foreground = self.light
         ).pack(pady = 8)
 
-        ttk.Entry(self.root, textvariable = wind_var).pack(padx = 16)
+        ttk.Entry(self.root, textvariable = wind_var, justify = 'center').pack(padx = 16)
 
         ttk.Label(self.root,
             text = 'Average Temperature:',
@@ -62,7 +62,7 @@ class AugurUI:
             foreground = self.light
         ).pack(pady = 8)
         
-        ttk.Entry(self.root, textvariable = temp_var).pack()
+        ttk.Entry(self.root, textvariable = temp_var, justify = 'center').pack()
 
         ttk.Label(self.root,
             text = 'Month as Integer:',
@@ -70,7 +70,7 @@ class AugurUI:
             foreground = self.light
         ).pack(pady = 8)
 
-        ttk.Entry(self.root, textvariable = date_var).pack()
+        ttk.Entry(self.root, textvariable = date_var, justify = 'center').pack()
 
         ttk.Button(
             self.root,                # lambda: Used on command below,
