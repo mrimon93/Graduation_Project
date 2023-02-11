@@ -9,34 +9,40 @@ end_date   = '2022-11-01 00:00'
 SE_AREA = "SE4"
 params  = ["1", "4"]
 
-messagebox.askquestion(
+start_now = messagebox.askquestion(
     'askquestion', 
     'Will fetch data from remote servers.\n'+ \
         '~100MB\nProceed anyway?')
 
-## Make directory tree if not present
-os.system('./pkgs/make_tree.sh')
+if start_now == 'no':
+    print('Exiting...')
+    exit()
 
-## Prices 
-e_handle = EnergyHandler()
-e_handle.get_data(start_date, end_date, SE_AREA)
-e_handle.clean_price_data('raw_el_prices.json')
+else:
+    
+    ## Make directory tree if not present
+    os.system('./pkgs/make_tree.sh')
 
-## Weather
-smhi = MainSMHI()
-smhi.get_raw()
-smhi.get_raw('wind')
-smhi.clean_raw()
-smhi.save_samples('2021-11-01', '2022-11-01')
+    ## Prices 
+    e_handle = EnergyHandler()
+    e_handle.get_data(start_date, end_date, SE_AREA)
+    e_handle.clean_price_data('raw_el_prices.json')
 
-## Merger
-targets = os.listdir('data_w/target/')
+    ## Weather
+    smhi = MainSMHI()
+    smhi.get_raw()
+    smhi.get_raw('wind')
+    smhi.clean_raw()
+    smhi.save_samples('2021-11-01', '2022-11-01')
 
-mm = MegaMerger()
-mm.calculate_averages(targets)
-mm.merge_weather_and_prices(
-    'Vindhastighet_AVG.csv', 'Lufttemperatur_AVG.csv', 'harmonized_el_prices.csv')
-mm.find_and_fill_missing_data()
+    ## Merger
+    targets = os.listdir('data_w/target/')
+
+    mm = MegaMerger()
+    mm.calculate_averages(targets)
+    mm.merge_weather_and_prices(
+        'Vindhastighet_AVG.csv', 'Lufttemperatur_AVG.csv', 'harmonized_el_prices.csv')
+    mm.find_and_fill_missing_data()
 
 messagebox.showinfo('showinfo', 'Done!\nFile saved in:\n' + \
     'data_el/merged/\nas:\nnonull_elpriser_och_vader.csv')
