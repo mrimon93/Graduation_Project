@@ -10,4 +10,5 @@ depending on the user input.
 ## Trained model now implemented.  
 ![](UI.png)
 
-  
+Run AugurMain.py to start program  
+and see it scream for dependecies :)
