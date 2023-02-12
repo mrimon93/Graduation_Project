@@ -1,3 +1,4 @@
+'''Idiosyncratic Augur'''
 from AugurUI import AugurUI
 import tkinter as tk
 
