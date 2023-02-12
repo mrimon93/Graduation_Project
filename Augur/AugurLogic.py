@@ -46,30 +46,14 @@ class AugurLogic:
         
     
         result = 'At {}:00,\n'.format(hour.get()) + \
-            'with wind average of\n{} m/s\nand '.format(wind.get()) + \
+            'with wind average of\n{} m / s\nand '.format(wind.get()) + \
                 'average temperature of\n{}°C\n'.format(temp.get()) + \
                     'in the month of\n{},\n'.format(calendar.month_name[month_in]) + \
-                        'the price should be:\n{} SEK'.format(str(y_pred.round(2)[0])) # some str var...
+                        'the price should be:\n{} SEK / KWh'.format(str(y_pred.round(2)[0])) # some str var...
 
         # Set 'Predict: result' 
         predict_var.set(result) 
-        # args[3].set(result)
 
-        return float(y_pred.round(2)[0]) # y_pred
 
-    # def return_str(self, *args):
-    #     month = 1
-    #     if len(args) <= 0:
-    #         month = int(args[2].get())
-    
-    #     result = 'With wind average of\n{} m/s\nand '.format(args[0].get()) + \
-    #         'average temperature of\n{}°C\n'.format(args[1].get()) + \
-    #             'in the month of\n{},\n'.format(calendar.month_name[month]) + \
-    #                 'the price should be:\n{}'.format(args[4].get()) # some str var...
-
-    #     # Set 'Predict: result'  
-    #     args[3].set(result)
-
-    #     return result
-
+        return float(y_pred.round(2)[0])
         
