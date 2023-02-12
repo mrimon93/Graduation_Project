@@ -38,7 +38,7 @@ class AugurUI:
         
 
 
-    def set_ui(self, wind_var, temp_var, date_var, predict_var):
+    def set_ui(self, wind_var, temp_var, date_var, hour_var, predict_var):
         '''Initialize UI elements.              \n
         For prettier UI, tk.StringVar() is used.\n
         Parameter:
@@ -49,11 +49,24 @@ class AugurUI:
             predict_var : tk.StringVar()        '''
 
         ttk.Label(self.root,
+            text = 'Hour of the day:',
+            background = self.dark,
+            foreground = self.light
+        ).pack(pady = 8)
+        ttk.Entry(self.root, textvariable = hour_var, justify = 'center').pack()
+
+        ttk.Label(self.root,
+            text = 'Month as Integer:',
+            background = self.dark,
+            foreground = self.light
+        ).pack(pady = 8)
+        ttk.Entry(self.root, textvariable = date_var, justify = 'center').pack()
+
+        ttk.Label(self.root,
             text='Average Wind Speed:',
             background = self.dark,
             foreground = self.light
         ).pack(pady = 8)
-
         ttk.Entry(self.root, textvariable = wind_var, justify = 'center').pack(padx = 16)
 
         ttk.Label(self.root,
@@ -61,22 +74,13 @@ class AugurUI:
             background = self.dark,
             foreground = self.light
         ).pack(pady = 8)
-        
         ttk.Entry(self.root, textvariable = temp_var, justify = 'center').pack()
-
-        ttk.Label(self.root,
-            text = 'Month as Integer:',
-            background = self.dark,
-            foreground = self.light
-        ).pack(pady = 8)
-
-        ttk.Entry(self.root, textvariable = date_var, justify = 'center').pack()
 
         ttk.Button(
             self.root,                # lambda: Used on command below,
             text    = 'Run',          # or will trigger on initiation
-            command = lambda: self.a_logic.return_str( # <- This line
-                wind_var, temp_var, date_var, predict_var
+            command = lambda: self.a_logic.get_input_and_predict( # <- This line
+                wind_var, temp_var, date_var, hour_var, predict_var
             )
         ).pack(pady = 8)
 
@@ -92,7 +96,7 @@ class AugurUI:
             background   = self.dark,
             foreground   = self.light,
             justify      = 'center',
-        ).pack(pady = 55)
+        ).pack(pady = 18)
 
         btn_close = ttk.Button(self.root,
             text = 'Close',
