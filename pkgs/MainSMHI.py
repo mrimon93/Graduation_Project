@@ -19,7 +19,7 @@ class MainSMHI:
         elif parameter == 'temperature':
             weather_value = 1
 
-        with open('data_w/station_keys.csv', 'r', encoding = 'utf-8-sig') as station_keys:
+        with open('pkgs/station_keys.csv', 'r', encoding = 'utf-8-sig') as station_keys:
 
             for line in station_keys.readlines()[1:]:
                 city    = line.split(',')[0].capitalize().replace(' ', '_')
