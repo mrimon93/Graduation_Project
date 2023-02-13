@@ -1,4 +1,6 @@
 #%%
+import os
+
 import calendar
 import pandas as pd
 import pickle
@@ -11,7 +13,7 @@ class AugurLogic:
         pass
 
     def get_input_and_predict(self, wind, temp, month, hour, predict_var):
-        filename = 'finalized_model.sav'
+        filename = os.getcwd() + '/Augur/ML/finalized_model.sav'
 
         vindhastighet = float(wind.get())
         lufttemperatur = float(temp.get())
