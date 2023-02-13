@@ -13,6 +13,8 @@ class AugurLogic:
         pass
 
     def get_input_and_predict(self, wind, temp, month, hour, predict_var):
+        CURR_DIR_PATH = os.path.dirname(os.path.realpath('__file__'))
+
         filename = os.getcwd() + '/Augur/ML/finalized_model.sav'
 
         vindhastighet = float(wind.get())

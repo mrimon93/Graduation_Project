@@ -1,4 +1,8 @@
-'''Idiosyncratic Augur'''
+''' Idiosyncratic Augur.
+Run this file from project root folder.
+Example from terminal:
+python.exe .\Augur\AugurMain.py
+'''
 from AugurUI import AugurUI
 import tkinter as tk
 
