@@ -38,7 +38,7 @@ class AugurUI:
         
 
 
-    def set_ui(self, wind_var, temp_var, date_var, hour_var, predict_var):
+    def set_ui(self, wind_var, temp_var, date_var, hour_var, day_var, predict_var):
         '''Initialize UI elements.              \n
         For prettier UI, tk.StringVar() is used.\n
         Parameter:
@@ -63,6 +63,13 @@ class AugurUI:
         ttk.Entry(self.root, textvariable = date_var, justify = 'center').pack()
 
         ttk.Label(self.root,
+            text = 'Day as Integer:',
+            background = self.dark,
+            foreground = self.light
+        ).pack(pady = 8)
+        ttk.Entry(self.root, textvariable = day_var, justify = 'center').pack()
+
+        ttk.Label(self.root,
             text='Average Wind Speed:',
             background = self.dark,
             foreground = self.light
@@ -80,7 +87,7 @@ class AugurUI:
             self.root,                # lambda: Used on command below,
             text    = 'Run',          # or will trigger on initiation
             command = lambda: self.a_logic.get_input_and_predict( # <- This line
-                wind_var, temp_var, date_var, hour_var, predict_var
+                wind_var, temp_var, date_var, hour_var, day_var, predict_var
             )
         ).pack(pady = 8)
 

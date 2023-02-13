@@ -2,7 +2,8 @@
 #  Load a trained model from a file and use it to make predictions. The script should take the following input from the user:
 #  Vindhastighet AVG, Lufttemperatur AVG, Month, TimeOfDay. The script should then use the model to make a prediction of the price of electricity in the future.
 #  The script should then print the prediction to the user.
-import time
+import os
+from time import time
 import pandas as pd
 import numpy as np
 import pickle
@@ -10,58 +11,58 @@ from sklearn.preprocessing import StandardScaler
 import currency_converter as cc
 #load the model from a file
 
-def get_input_and_predict(wind:float, temp:float, month:int, hour:int):
-    filename = 'finalized_model.sav'
-    vindhastighet = float(wind)
-    lufttemperatur = float(temp)
-    month_in  = int(month)
-    timeofday = int(hour)
+class NewLogic:
+    def __init__(self):
+        pass
 
-    loaded_model = pickle.load(open(filename, 'rb'))
+    
+    def get_input_and_predict(self, wind:float, temp:float, month_int:int, hour:int, day_int:int):
+        filename = os.getcwd() + '/Augur/ML/finalized_model_weekdays.sav'
+        # '/simon_lektuga/finalized_model_weekdays.sav'
+        
+        vindhastighet  = float(wind)
+        lufttemperatur = float(temp)
+        month     = int(month_int)
+        timeofday = int(hour)
+        weekday   = int(day_int)
 
-    #put the input into a dataframe
-    df = pd.DataFrame(
-        {'Vindhastighet AVG': [vindhastighet],
-        'Lufttemperatur AVG': [lufttemperatur],
-        'Month':      [month_in],
-        'TimeOfDay': [timeofday]}
-    )
+        loaded_model = pickle.load(open(filename, 'rb'))
 
-    #scale the data
-    X = df[['Vindhastighet AVG', 'Lufttemperatur AVG', 'Month', 'TimeOfDay']]
-    scaler = StandardScaler()
-    scaler.fit(X).transform(X)
+        #put the input into a dataframe
+        df = pd.DataFrame({'Vindhastighet AVG': [vindhastighet], 'Lufttemperatur AVG': [lufttemperatur], 'Month': [month], 'TimeOfDay': [timeofday], 'DayOfWeek': [weekday]})
+        
+        #scale the data
+        X = df[['Vindhastighet AVG', 'Lufttemperatur AVG', 'Month', 'TimeOfDay', 'DayOfWeek']]
+        scaler = StandardScaler()
+        scaler.fit(X).transform(X)
 
-    #make a prediction
-    y_pred = loaded_model.predict(X)
+        #make a prediction
+        y_pred = loaded_model.predict(X)
 
-    #convert from EUR per Mwh to SEK per Kwh
-    c = cc.CurrencyConverter()
-    y_pred = y_pred / 1000
-    y_pred = y_pred * c.convert(1, 'EUR', 'SEK')
-
-    print("The price of electricity in the future is: " + str(y_pred.round(1)[0]) + " SEK per Kwh")
-
-    return float(y_pred.round(1)[0]) # y_pred
+        #convert from EUR per Mwh to SEK per Kwh
+        c = cc.CurrencyConverter()
+        y_pred = y_pred / 1000
+        y_pred = y_pred * c.convert(1, 'EUR', 'SEK')
+        print("The price of electricity in the future is: " + str(y_pred[0].round(2)) + " SEK per Kwh")
+        return y_pred[0].round(2)
 
 if __name__ == '__main__':
+    au = NewLogic()
     runnum = 0
-    st = time.time()
+    start_t = time()
 
-    for i in range(0,11):
+    for i in range(0,10):
         runnum += 1
         wind  = np.random.randint(0, 14)
         temp  = np.random.randint(-10, 24)
         month = np.random.randint(1, 12)
         hour  = np.random.randint(0, 23)
-
+        day   = np.random.randint(1, 8)
+        
         print('\nTest:', runnum)
         print(f'Hour: {hour}, Temp: {temp}, Wind: {wind}, Month: {month}')
 
-        get_input_and_predict(wind = wind, temp = temp, month = month, hour = hour)
+        au.get_input_and_predict(wind = wind, temp = temp, month_int = month, hour = hour, day_int = day)
 
-    end_t = time.time()
-    print('Executed in:', (end_t-st), 'seconds')
-
-    # get_input_and_predict(wind = 4, temp = 12, month = 6, hour = 4)
-    # get_input_and_predict(wind = 6, temp = 12, month = 8, hour = 4)
+    end_t = time()
+    print('Executed in:', (end_t - start_t), 'seconds')
