@@ -14,11 +14,26 @@ class AugurLogic:
 
     
     def get_input_and_predict(self, wind, temp, month_int, hour, day_int, predict_var):
+        '''Reads .sav file in Augur/ML folder.      \n
+        From given input it makes prediction on set:\n
+        Parameters:
+        ----------
+            wind : float
+            temp : float
+            month_int : int
+            hour : int
+            day_int : int
+            predict_var : Tk.Stringvar()
+        ----------
+        Returns
+        ----------
+            float '''
+
         filename = os.getcwd() + '/Augur/ML/finalized_model_weekdays.sav'
-        # '/simon_lektuga/finalized_model_weekdays.sav'
         
         vindhastighet  = float(wind.get())
         lufttemperatur = float(temp.get())
+
         month     = int(month_int.get())
         timeofday = int(hour.get())
         weekday   = int(day_int.get())
@@ -45,9 +60,8 @@ class AugurLogic:
         c = cc.CurrencyConverter()
         y_pred = y_pred / 1000
         y_pred = y_pred * c.convert(1, 'EUR', 'SEK')
-        print("The price of electricity in the future is: " + str(y_pred[0].round(2)) + " SEK per Kwh")
         
-        result = 'A {} at {}:00,\n'.format(calendar.day_name[weekday], hour.get()) + \
+        result = 'A {} at {}:00,\n'.format(calendar.day_name[weekday-1], hour.get()) + \
             'in the month of\n{},\n'.format(calendar.month_name[month]) + \
                 'with wind average of\n{} m / s\nand '.format(wind.get()) + \
                     'average temperature of\n{}°C\n'.format(temp.get()) + \
@@ -59,9 +73,10 @@ class AugurLogic:
         return y_pred[0].round(2)
 
 if __name__ == '__main__':
-    au = AugurLogic()
-    runnum = 0
+    runnum  = 0
     start_t = time()
+
+    au = AugurLogic()
 
     for i in range(0,10):
         runnum += 1
@@ -77,4 +92,4 @@ if __name__ == '__main__':
         au.get_input_and_predict(wind = wind, temp = temp, month_int = month, hour = hour, day_int = day)
 
     end_t = time()
-    print('Executed in:', (end_t - start_t), 'seconds')
+    print('Executed in:', float(end_t - start_t, 2), 'seconds')

@@ -9,7 +9,7 @@ import tkinter as tk
 
 root = tk.Tk()
 root.title('Augur')
-root.geometry('220x600')
+root.geometry('220x640')
 
 wind_var = tk.IntVar()
 temp_var = tk.IntVar()
@@ -17,11 +17,6 @@ day_var  = tk.IntVar()
 date_var = tk.IntVar()
 hour_var = tk.IntVar()
 predict_var = tk.StringVar()
-
-## Set StringVars for faster testing 
-# wind_var.set(2)
-# temp_var.set(4)
-# date_var.set(7)
 
 ## This is a hack to keep UI consistent from start to finish
 predict_var.set('Use average values\nas input for\nwind and temeprature.\n\n\n\n\n\n')          # Don't touch it!

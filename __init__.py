@@ -49,8 +49,8 @@ else:
         'Vindhastighet_AVG.csv', 'Lufttemperatur_AVG.csv', 'harmonized_el_prices.csv')
     mm.find_and_fill_missing_data()
 
-    # Preload data before database
-    fact_df = pd.read_csv(CURR_DIR_PATH + "\\data_el\\merged\\nonull_elpriser_och_vader.csv", sep=';')
+    ## Preload data before database
+    fact_df = pd.read_csv(CURR_DIR_PATH + "/data_el/merged/nonull_elpriser_och_vader.csv", sep=';')
     fact_data = ""
 
     for index, row in fact_df.iterrows():

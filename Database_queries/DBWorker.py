@@ -80,9 +80,3 @@ if __name__ == '__main___':
     db_worker = DBWorker()
     conn = db_worker.connect_to_db()
     db_worker.write_to_fact(conn, fact_data)
-
-
-    ## check that the data can be fetched from database
-    # conn = connect_to_db()
-    # row_data = read_db_fact(conn)
-    # print(row_data)
