@@ -8,6 +8,7 @@ import tkinter as tk
 
 root = tk.Tk()
 root.title('Augur')
+root.geometry('220x600')
 
 wind_var = tk.IntVar()
 temp_var = tk.IntVar()
