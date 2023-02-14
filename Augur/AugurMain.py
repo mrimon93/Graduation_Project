@@ -1,6 +1,7 @@
 ''' Idiosyncratic Augur.
 Run this file from project root folder.
 Example from terminal:
+cd GraduationProject
 python.exe .\Augur\AugurMain.py
 '''
 from AugurUI import AugurUI
