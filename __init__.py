@@ -11,7 +11,7 @@ start_date = '2021-11-01 00:00'
 end_date   = '2022-11-01 00:00'
 params     = ['1', '4']
 
-SE_AREA    = 'SE4'
+SE_AREA       = 'SE4'
 CURR_DIR_PATH = os.path.dirname(os.path.realpath('__file__'))
 
 start_now = messagebox.askquestion(
