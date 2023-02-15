@@ -3,6 +3,7 @@ from pkgs.HandleSMHI import HandleSMHI
 # from MergerSMHI import MergerSMHI
 
 class MainSMHI:
+    '''Handles downloading of csv files from SMHI'''
     def __init__(self):
         pass
 

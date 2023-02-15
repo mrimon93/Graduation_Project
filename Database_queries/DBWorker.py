@@ -5,11 +5,23 @@ import pandas as pd
 import Database_queries.config as config
 
 class DBWorker:
+    '''Handles connection to postgresql server. \n
+    Requires a config file in 'Database_queries' folder.
+    Medthods:
+    ----------
+        connect_to_db()
+        read_db_fact(connection)
+    '''
     def __init__(self):
         pass
 
     # open connection to database
     def connect_to_db(self):
+        '''Establishes connection to database. \n
+        Returns:
+        ----------
+            connection object '''
+
         conn = None
 
         try:
@@ -29,6 +41,11 @@ class DBWorker:
 
     # read rows from "fact" table
     def read_db_fact(self, conn):
+        '''Reads from said table int the database. \n
+        Parameters:
+        -----------
+            conn : connection object '''
+
         try:
             cur = conn.cursor()
             cur.execute(f"SELECT * FROM fact;")
@@ -46,6 +63,12 @@ class DBWorker:
 
     # function for inputting data to database table "fact"
     def write_to_fact(self, conn, data):
+        '''Write data to said table in database     \n
+        Parameters:
+        -----------
+            conn : connection object
+            data : data to be written '''
+
         try:        
             cur = conn.cursor()
             cur.execute(f"INSERT INTO fact (tid, lufttemperatur_celsius, vindhastighet_ms, price_area, spotprice_eur) VALUES {data};")
